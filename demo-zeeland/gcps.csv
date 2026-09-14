@@ -1,0 +1,37 @@
+# Ground control points for https://iiif.micr.io/vVYKG (Le Comte de Zeelande, c. 1690).
+# px,py = pixel position of the town vignette on the 8385x5938 scan, read off IIIF crops.
+# lon,lat = modern WGS84 town centre. Edit a row and re-run build-annotation.mjs.
+name,px,py,lon,lat,source
+Aardenburg,1721,5263,3.44969,51.27366,nominatim
+Arnemuiden,3457,2775,3.67625,51.50000,osm-place-node
+Axel,4660,5600,3.90716,51.26739,nominatim
+Bergen op Zoom,7280,3414,4.28715,51.49448,nominatim
+Borssele,3838,3574,3.73794,51.42549,nominatim
+Brouwershaven,4726,880,3.91255,51.72560,osm-place-node
+Cadzand,1220,4462,3.40900,51.36855,osm-place-node
+Den Bommel,7422,1148,4.28088,51.71700,nominatim
+Domburg,2265,1969,3.49673,51.56321,osm-place-node
+Dreischor,5209,1185,3.98342,51.68955,osm-place-node
+Goedereede,5102,317,3.97768,51.81813,osm-place-node
+Goes,4787,2993,3.88976,51.50310,osm-place-node
+Haamstede,3710,1084,3.74337,51.69749,nominatim
+IJzendijke,2723,4859,3.61634,51.32216,osm-place-node
+Kapelle,5188,3120,3.96063,51.48797,nominatim
+Kats,4802,2313,3.88567,51.56758,osm-place-node
+Kortgene,4258,2413,3.80192,51.55617,osm-place-node
+Kruiningen,5626,3622,4.03410,51.44881,nominatim
+Melissant,5816,586,4.06668,51.77012,nominatim
+Middelburg,3024,2727,3.61374,51.49968,osm-place-node
+Middelharnis,6474,723,4.16565,51.75762,nominatim
+Oostburg,1874,4737,3.48955,51.32719,nominatim
+Ouddorp,4855,372,3.93592,51.80931,osm-place-node
+Oude-Tonge,6842,1314,4.21241,51.69067,nominatim
+Philippine,3658,5318,3.75800,51.28120,nominatim
+Sint-Annaland,6134,2304,4.10233,51.60039,nominatim
+Sint-Maartensdijk,5936,2810,4.07830,51.54880,nominatim
+Tholen,6666,2984,4.22328,51.53545,osm-place-node
+Veere,3381,2292,3.66609,51.54752,osm-place-node
+Vlissingen,2732,3278,3.56980,51.44809,osm-place-node
+Westkapelle,1880,2244,3.44079,51.52933,osm-place-node
+Yerseke,5706,3250,4.04525,51.49358,osm-place-node
+Zierikzee,4896,1666,3.92084,51.64977,osm-place-node

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Le Comté de Zeelande (c. 1690) over modern Zeeland</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      #map {
+        position: absolute;
+        inset: 0;
+      }
+      #panel {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1;
+        width: 17rem;
+        padding: 0.9rem 1rem;
+        border-radius: 0.5rem;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        font-size: 0.8rem;
+        line-height: 1.45;
+      }
+      #panel h1 {
+        margin: 0 0 0.15rem;
+        font-size: 0.95rem;
+      }
+      #panel p {
+        margin: 0 0 0.75rem;
+        color: #555;
+      }
+      #panel label {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      #opacity {
+        width: 100%;
+      }
+      #status {
+        color: #777;
+        font-variant-numeric: tabular-nums;
+      }
+      #status[data-state="error"] {
+        color: #b00;
+      }
+      a {
+        color: #06c;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <div id="panel">
+      <h1>Le Comté de Zeelande</h1>
+      <p>
+        Pierre Mortier after Sanson, Amsterdam c. 1690 &middot;
+        <a
+          href="https://www.rijksmuseum.nl/en/collection/RP-P-2022-5542"
+          target="_blank"
+          rel="noreferrer"
+          >RP-P-2022-5542</a
+        >
+      </p>
+
+      <label>
+        <input type="checkbox" id="visible" checked /> Show historic map
+      </label>
+
+      <label>
+        Opacity <span id="opacity-value">100%</span>
+        <input type="range" id="opacity" min="0" max="100" value="100" />
+      </label>
+
+      <div id="status">loading…</div>
+    </div>
+
+    <script type="module">
+      import maplibregl from 'https://esm.run/maplibre-gl@5.24.0'
+      import { WarpedMapLayer } from 'https://esm.run/@allmaps/maplibre@1.0.0-beta.43'
+
+      const status = document.getElementById('status')
+      const setStatus = (text, state) => {
+        status.textContent = text
+        if (state) status.dataset.state = state
+        else delete status.dataset.state
+      }
+
+      const map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+        center: [3.9, 51.5],
+        zoom: 8.6,
+        // The Allmaps plugin does not support pitch.
+        maxPitch: 0,
+        attributionControl: { customAttribution: 'Map image: Rijksmuseum (CC0)' }
+      })
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }))
+
+      const layer = new WarpedMapLayer()
+
+      map.on('load', async () => {
+        map.addLayer(layer)
+        try {
+          const annotation = await fetch('./annotation.json').then((res) => {
+            if (!res.ok) throw new Error(`annotation.json: HTTP ${res.status}`)
+            return res.json()
+          })
+          await layer.addGeoreferenceAnnotation(annotation)
+
+          const gcps = annotation.body.features.length
+          setStatus(`${gcps} control points · ${annotation.body.transformation.type}`)
+
+          const bbox = layer.getBbox()
+          if (bbox) {
+            map.fitBounds(bbox, { padding: 40, duration: 0 })
+          }
+        } catch (err) {
+          // Most likely cause: opened via file:// so fetch() is blocked.
+          setStatus(err.message, 'error')
+          console.error(err)
+        }
+      })
+
+      const opacity = document.getElementById('opacity')
+      const opacityValue = document.getElementById('opacity-value')
+      opacity.addEventListener('input', () => {
+        layer.setOpacity(Number(opacity.value) / 100)
+        opacityValue.textContent = `${opacity.value}%`
+      })
+
+      document.getElementById('visible').addEventListener('change', (event) => {
+        layer.setLayerOptions({ visible: event.target.checked })
+      })
+    </script>
+  </body>
+</html>

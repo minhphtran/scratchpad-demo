@@ -1,0 +1,590 @@
+{
+  "@context": [
+    "http://iiif.io/api/extension/georef/1/context.json",
+    "http://iiif.io/api/presentation/3/context.json"
+  ],
+  "type": "Annotation",
+  "motivation": "georeferencing",
+  "target": {
+    "type": "SpecificResource",
+    "source": {
+      "id": "https://iiif.micr.io/vVYKG",
+      "type": "ImageService3",
+      "width": 8385,
+      "height": 5938
+    },
+    "selector": {
+      "type": "SvgSelector",
+      "value": "<svg width=\"8385\" height=\"5938\"><polygon points=\"320,228 8050,270 8015,5632 288,5554\" /></svg>"
+    }
+  },
+  "body": {
+    "type": "FeatureCollection",
+    "transformation": {
+      "type": "thinPlateSpline"
+    },
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            1721,
+            5263
+          ],
+          "label": "Aardenburg"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.44969,
+            51.27366
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3457,
+            2775
+          ],
+          "label": "Arnemuiden"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.67625,
+            51.5
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4660,
+            5600
+          ],
+          "label": "Axel"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.90716,
+            51.26739
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            7280,
+            3414
+          ],
+          "label": "Bergen op Zoom"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.28715,
+            51.49448
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3838,
+            3574
+          ],
+          "label": "Borssele"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.73794,
+            51.42549
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4726,
+            880
+          ],
+          "label": "Brouwershaven"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.91255,
+            51.7256
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            1220,
+            4462
+          ],
+          "label": "Cadzand"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.409,
+            51.36855
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            7422,
+            1148
+          ],
+          "label": "Den Bommel"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.28088,
+            51.717
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            2265,
+            1969
+          ],
+          "label": "Domburg"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.49673,
+            51.56321
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5209,
+            1185
+          ],
+          "label": "Dreischor"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.98342,
+            51.68955
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5102,
+            317
+          ],
+          "label": "Goedereede"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.97768,
+            51.81813
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4787,
+            2993
+          ],
+          "label": "Goes"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.88976,
+            51.5031
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3710,
+            1084
+          ],
+          "label": "Haamstede"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.74337,
+            51.69749
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            2723,
+            4859
+          ],
+          "label": "IJzendijke"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.61634,
+            51.32216
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5188,
+            3120
+          ],
+          "label": "Kapelle"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.96063,
+            51.48797
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4802,
+            2313
+          ],
+          "label": "Kats"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.88567,
+            51.56758
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4258,
+            2413
+          ],
+          "label": "Kortgene"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.80192,
+            51.55617
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5626,
+            3622
+          ],
+          "label": "Kruiningen"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.0341,
+            51.44881
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5816,
+            586
+          ],
+          "label": "Melissant"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.06668,
+            51.77012
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3024,
+            2727
+          ],
+          "label": "Middelburg"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.61374,
+            51.49968
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            6474,
+            723
+          ],
+          "label": "Middelharnis"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.16565,
+            51.75762
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            1874,
+            4737
+          ],
+          "label": "Oostburg"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.48955,
+            51.32719
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4855,
+            372
+          ],
+          "label": "Ouddorp"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.93592,
+            51.80931
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            6842,
+            1314
+          ],
+          "label": "Oude-Tonge"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.21241,
+            51.69067
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3658,
+            5318
+          ],
+          "label": "Philippine"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.758,
+            51.2812
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            6134,
+            2304
+          ],
+          "label": "Sint-Annaland"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.10233,
+            51.60039
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5936,
+            2810
+          ],
+          "label": "Sint-Maartensdijk"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.0783,
+            51.5488
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            6666,
+            2984
+          ],
+          "label": "Tholen"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.22328,
+            51.53545
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            3381,
+            2292
+          ],
+          "label": "Veere"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.66609,
+            51.54752
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            2732,
+            3278
+          ],
+          "label": "Vlissingen"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.5698,
+            51.44809
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            1880,
+            2244
+          ],
+          "label": "Westkapelle"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.44079,
+            51.52933
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            5706,
+            3250
+          ],
+          "label": "Yerseke"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            4.04525,
+            51.49358
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "resourceCoords": [
+            4896,
+            1666
+          ],
+          "label": "Zierikzee"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            3.92084,
+            51.64977
+          ]
+        }
+      }
+    ]
+  }
+}

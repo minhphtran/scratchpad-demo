@@ -1,0 +1,9 @@
+{
+  "comment": "Polygon of the map's neat line, in pixels of https://iiif.micr.io/vVYKG (8385x5938). Traced from the four corner crops; the inner edge of the ticked graticule band, inset ~15px so the border ruler is not drawn over the basemap. The scan is very slightly skewed, hence the corners do not share x/y values. The title and scale cartouches sit inside this frame over the North Sea and are deliberately included.",
+  "polygon": [
+    [320, 228],
+    [8050, 270],
+    [8015, 5632],
+    [288, 5554]
+  ]
+}
