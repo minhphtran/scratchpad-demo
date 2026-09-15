@@ -87,8 +87,8 @@
         "geometry": {
           "type": "Point",
           "coordinates": [
-            3.57727,
-            51.5564
+            3.66609,
+            51.54752
           ]
         }
       },
@@ -181,23 +181,6 @@
         "type": "Feature",
         "properties": {
           "resourceCoords": [
-            2625,
-            1111
-          ],
-          "label": "Tholen"
-        },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [
-            4.07614,
-            51.57085
-          ]
-        }
-      },
-      {
-        "type": "Feature",
-        "properties": {
-          "resourceCoords": [
             1581,
             1123
           ],
@@ -257,8 +240,8 @@
         "geometry": {
           "type": "Point",
           "coordinates": [
-            3.51663,
-            51.32566
+            3.39805,
+            51.29407
           ]
         }
       },
@@ -266,16 +249,16 @@
         "type": "Feature",
         "properties": {
           "resourceCoords": [
-            1349,
-            1763
+            1362,
+            1768
           ],
           "label": "Aardenburg"
         },
         "geometry": {
           "type": "Point",
           "coordinates": [
-            3.44969,
-            51.27366
+            3.44886,
+            51.28701
           ]
         }
       },

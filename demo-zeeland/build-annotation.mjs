@@ -37,8 +37,9 @@ const TRANSFORMATION = 'thinPlateSpline'
 const csv = readFileSync(new URL(`./gcps-${KEY}.csv`, import.meta.url), 'utf8')
 const [header, ...lines] = csv
   .trim()
-  .split('\n')
-  .filter((line) => line.trim() && !line.startsWith('#'))
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter((line) => line && !line.startsWith('#'))
 const cols = header.split(',')
 
 const gcps = lines.map((line) =>
