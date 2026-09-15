@@ -1,0 +1,9 @@
+{
+  "comment": "Neat line of https://iiif.micr.io/BOjyb (3768x3122), traced from corner crops and inset a few px.",
+  "polygon": [
+    [335, 260],
+    [3488, 260],
+    [3488, 2592],
+    [335, 2592]
+  ]
+}

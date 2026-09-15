@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Le Comté de Zeelande (c. 1690) over modern Zeeland</title>
+    <title>Zeeland, then and now</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.css"
@@ -27,8 +27,8 @@
         top: 1rem;
         left: 1rem;
         z-index: 1;
-        width: 17rem;
-        padding: 0.9rem 1rem;
+        width: 18rem;
+        padding: 0.9rem 1rem 0.8rem;
         border-radius: 0.5rem;
         background: rgba(255, 255, 255, 0.94);
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
@@ -36,23 +36,59 @@
         line-height: 1.45;
       }
       #panel h1 {
-        margin: 0 0 0.15rem;
+        margin: 0 0 0.5rem;
         font-size: 0.95rem;
       }
-      #panel p {
-        margin: 0 0 0.75rem;
-        color: #555;
+      #show-row {
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.2rem;
+        border-bottom: 1px solid #e3e3e3;
       }
-      #panel label {
-        display: block;
-        margin-bottom: 0.5rem;
+
+      .option {
+        padding: 0.5rem 0 0.1rem;
+        /* the dimming is the hint for which map the toggle acts on */
+        transition: opacity 0.18s ease;
       }
-      #opacity {
+      .option:not(.active) {
+        opacity: 0.4;
+      }
+      .option-name {
+        display: flex;
+        gap: 0.4rem;
+        align-items: baseline;
+        cursor: pointer;
+      }
+      .option-name b {
+        font-weight: 600;
+      }
+      .option-name span {
+        color: #666;
+        font-size: 0.72rem;
+      }
+      .option input[type="range"] {
         width: 100%;
+        margin: 0.25rem 0 0;
+        cursor: pointer;
       }
-      #status {
-        color: #777;
+      .pct {
+        float: right;
+        color: #666;
         font-variant-numeric: tabular-nums;
+        font-size: 0.72rem;
+      }
+
+      /* disabled master toggle greys everything without hiding the layout */
+      #panel[data-hidden="true"] .option {
+        opacity: 0.25;
+      }
+
+      #status {
+        margin-top: 0.55rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid #e3e3e3;
+        color: #777;
+        font-size: 0.72rem;
       }
       #status[data-state="error"] {
         color: #b00;
@@ -66,85 +102,143 @@
     <div id="map"></div>
 
     <div id="panel">
-      <h1>Le Comté de Zeelande</h1>
-      <p>
-        Pierre Mortier after Sanson, Amsterdam c. 1690 &middot;
-        <a
-          href="https://www.rijksmuseum.nl/en/collection/RP-P-2022-5542"
-          target="_blank"
-          rel="noreferrer"
-          >RP-P-2022-5542</a
-        >
-      </p>
+      <h1>Zeeland, then and now</h1>
 
-      <label>
-        <input type="checkbox" id="visible" checked /> Show historic map
-      </label>
+      <div id="show-row">
+        <label>
+          <input type="checkbox" id="visible" checked /> Show historic map
+        </label>
+      </div>
 
-      <label>
-        Opacity <span id="opacity-value">100%</span>
-        <input type="range" id="opacity" min="0" max="100" value="100" />
-      </label>
+      <div class="option active" data-key="1690">
+        <label class="option-name">
+          <input type="radio" name="active" value="1690" checked />
+          <b>1690</b>
+          <span>Mortier &middot; <i>Le Comt&eacute; de Zeelande</i></span>
+        </label>
+        <span class="pct">100%</span>
+        <input type="range" min="0" max="100" value="100" />
+      </div>
 
-      <div id="status">loading…</div>
+      <div class="option" data-key="1663">
+        <label class="option-name">
+          <input type="radio" name="active" value="1663" />
+          <b>1663</b>
+          <span>Schroots &middot; <i>Kaarte van Zeeland</i></span>
+        </label>
+        <span class="pct">70%</span>
+        <input type="range" min="0" max="100" value="70" />
+      </div>
+
+      <div id="status">loading&hellip;</div>
     </div>
 
     <script type="module">
       import maplibregl from 'https://esm.run/maplibre-gl@5.24.0'
       import { WarpedMapLayer } from 'https://esm.run/@allmaps/maplibre@1.0.0-beta.43'
 
-      const status = document.getElementById('status')
-      const setStatus = (text, state) => {
-        status.textContent = text
-        if (state) status.dataset.state = state
-        else delete status.dataset.state
+      const MAPS = {
+        1690: { url: './annotation-1690.json' },
+        1663: { url: './annotation-1663.json' }
       }
+
+      const panel = document.getElementById('panel')
+      const statusEl = document.getElementById('status')
+      const showBox = document.getElementById('visible')
+
+      let active = '1690'
 
       const map = new maplibregl.Map({
         container: 'map',
         style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
         center: [3.9, 51.5],
-        zoom: 8.6,
+        zoom: 8.2,
         // The Allmaps plugin does not support pitch.
         maxPitch: 0,
-        attributionControl: { customAttribution: 'Map image: Rijksmuseum (CC0)' }
+        attributionControl: { customAttribution: 'Map images: Rijksmuseum (CC0)' }
       })
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }))
 
-      const layer = new WarpedMapLayer()
+      // Only the active map is ever visible, and only when the master toggle is on.
+      function render() {
+        const show = showBox.checked
+        panel.dataset.hidden = String(!show)
+
+        for (const [key, entry] of Object.entries(MAPS)) {
+          const isActive = key === active
+          entry.option.classList.toggle('active', isActive)
+          entry.layer?.setLayerOptions({ visible: show && isActive })
+        }
+
+        const entry = MAPS[active]
+        statusEl.textContent = entry.summary ?? 'loading…'
+      }
+
+      function setActive(key) {
+        active = key
+        MAPS[key].radio.checked = true
+        render()
+      }
+
+      // Wire the controls up front so they respond even while annotations load.
+      for (const [key, entry] of Object.entries(MAPS)) {
+        const option = document.querySelector(`.option[data-key="${key}"]`)
+        entry.option = option
+        entry.radio = option.querySelector('input[type=radio]')
+        entry.slider = option.querySelector('input[type=range]')
+        entry.pct = option.querySelector('.pct')
+
+        entry.radio.addEventListener('change', () => setActive(key))
+
+        entry.slider.addEventListener('input', () => {
+          const value = Number(entry.slider.value)
+          entry.pct.textContent = `${value}%`
+          entry.layer?.setOpacity(value / 100)
+          // Touching a slider is also how you pick that map.
+          if (active !== key) setActive(key)
+          if (!showBox.checked) {
+            showBox.checked = true
+            render()
+          }
+        })
+      }
+
+      showBox.addEventListener('change', render)
 
       map.on('load', async () => {
-        map.addLayer(layer)
         try {
-          const annotation = await fetch('./annotation.json').then((res) => {
-            if (!res.ok) throw new Error(`annotation.json: HTTP ${res.status}`)
-            return res.json()
-          })
-          await layer.addGeoreferenceAnnotation(annotation)
+          let firstBbox = null
 
-          const gcps = annotation.body.features.length
-          setStatus(`${gcps} control points · ${annotation.body.transformation.type}`)
+          for (const [key, entry] of Object.entries(MAPS)) {
+            // Each WarpedMapLayer needs its own id when there is more than one.
+            entry.layer = new WarpedMapLayer({ layerId: `warped-${key}` })
+            map.addLayer(entry.layer)
 
-          const bbox = layer.getBbox()
-          if (bbox) {
-            map.fitBounds(bbox, { padding: 40, duration: 0 })
+            const annotation = await fetch(entry.url).then((res) => {
+              if (!res.ok) throw new Error(`${entry.url}: HTTP ${res.status}`)
+              return res.json()
+            })
+            await entry.layer.addGeoreferenceAnnotation(annotation)
+
+            entry.layer.setOpacity(Number(entry.slider.value) / 100)
+            entry.summary =
+              `${annotation.body.features.length} control points · ` +
+              `${annotation.body.transformation.type}`
+
+            if (key === active) firstBbox = entry.layer.getBbox()
           }
+
+          render()
+
+          // Fit once on load only -- refitting on every switch would throw away
+          // the view you were comparing.
+          if (firstBbox) map.fitBounds(firstBbox, { padding: 40, duration: 0 })
         } catch (err) {
           // Most likely cause: opened via file:// so fetch() is blocked.
-          setStatus(err.message, 'error')
+          statusEl.textContent = err.message
+          statusEl.dataset.state = 'error'
           console.error(err)
         }
-      })
-
-      const opacity = document.getElementById('opacity')
-      const opacityValue = document.getElementById('opacity-value')
-      opacity.addEventListener('input', () => {
-        layer.setOpacity(Number(opacity.value) / 100)
-        opacityValue.textContent = `${opacity.value}%`
-      })
-
-      document.getElementById('visible').addEventListener('change', (event) => {
-        layer.setLayerOptions({ visible: event.target.checked })
       })
     </script>
   </body>
